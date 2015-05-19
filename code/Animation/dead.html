@@ -1,0 +1,47 @@
+<meta charset="utf-8" />
+<title>designed by smilce</title>
+<style type="text/css">
+#login{
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	width: 300px;
+	height: 300px;
+	font-size: 18px;
+	background-color: #CCC;
+}
+#item{
+	width: 100%;
+	height: 100%;
+	background-color: #DCE;
+
+	-webkit-transition-property: -webkit-transform;
+	-webkit-transition-duration: .3s;
+	-webkit-transition-timing-function: ease-out;
+	-webkit-transition-delay: 0s;
+
+	-webkit-backface-visibility: visible;
+	-webkit-transform-origin: 50% 50%;
+	-webkit-transform: perspective(180px);
+}
+#item.step1{
+	-webkit-transform: perspective(180px) rotateY(80deg);
+}
+#item.step2{
+	-webkit-transform: perspective(180px) rotateY(80deg) translateX(400px);
+}
+</style>
+<div id="login" class="panel">
+	<div id="item"></div>
+</div>
+<script type="text/javascript" src='../../lib/lib.js'></script>
+<script type="text/javascript" src='animation.js'></script>
+<script type="text/javascript">
+var animation = lib.extend.useComponent("Animation");
+window.onclick = function(){
+	animation.setDead(item);
+}
+
+
+
+</script>

@@ -1,0 +1,95 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<ul id="web">
+    <li>facebook</li>
+    <li>microsoft</li>
+    <li>google</li>
+    <li>baidu</li>
+    <li>IBM</li>
+</ul>
+<button id="addWeb">add web</button>
+<button id="addWebs">add webs</button>
+<button id="selectIBM">selectIBM</button>
+<div id="calc">
+
+</div>
+<button id="addDir">add dir</button>
+<button id="addDirs">add dirs</button>
+<ul id="nation">
+    <li>中国</li>
+    <li>美国</li>
+    <li>瑞士</li>
+</ul>
+<script type="text/javascript" src="../../lib/lib.js"></script>
+<script type="text/javascript" src="newTab.js"></script>
+<script type="text/javascript">
+    
+    var lis = lib.g("web").getElementsByTagName("li");
+    var webTab = lib.extend.useComponent("Tab", {
+        handlers: lis
+    });
+
+    webTab.addListener("selected", function(index, data){
+        console.error(data);
+    });
+
+    addWeb.onclick = function(){
+        webTab.add({
+            handler: "twiter"
+        });
+    }
+
+    addWebs.onclick = function(){
+        webTab.add([
+            {
+                handler: "w3c"
+            },
+            {
+                handler: "github"
+            }
+        ]);
+    }
+
+    selectIBM.onclick = function(){
+        webTab.setSelected(4);
+    }
+    
+    var localTab = lib.extend.useComponent("Tab", {
+        handlers: ["我的电脑", "回收站", "commonLisp"],
+        render: "calc",
+        content: ["我的电脑有很多东西", "删死我了都", "lisp是一门神奇的语言"]
+    });
+
+    localTab.addListener("selected", function(index, data){
+        console.error(data);
+    });
+
+    addDir.onclick = function(){
+        localTab.add({
+            handler: "新建文件夹1"
+        });
+    }
+
+    addDirs.onclick = function(){
+        var dirs = [];
+        for(var i = 2;i<11;i++){
+            dirs.push({
+                handler: "新建文件夹"+i,
+                id: "dir"+i,
+                content: i%2 === 0 ? "我是双数文件夹"+i : null
+            });
+        }
+        localTab.add(dirs);
+    }
+
+    var nationTab = lib.extend.useComponent("Tab", {
+        handlers: nation.getElementsByTagName("li"),
+        content: ["中国有很多人", "美国有很多钱", "瑞士有很多雪"],
+        id: ["cnh", "usa", "ch"]
+    });
+
+    nationTab.addListener("selected", function(index, data){
+        console.error(data);
+    });
+
+    
+</script>

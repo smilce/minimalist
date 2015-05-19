@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>tip</title>
+        <style type="text/css">
+        html {
+            width:100%;
+            height:100%;
+        }
+        body {
+            width:100%;
+            height:100%;
+            font:normal 14px/18px "Microsoft YaHei","宋体", "STHeiti",   "SimSun", "Arial";
+            color: #525252;
+            cursor:default;
+            -webkit-user-select:none;
+            -webkit-text-size-adjust:none;
+            background: white;
+        }
+        body input, body textarea, body button, body select{
+            font-family: "Microsoft YaHei";
+        }      
+        body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, 
+        form, fieldset, legend, input, textarea, p, blockquote, header, footer,
+        th, td, iframe {
+            margin: 0; 
+            padding: 0; 
+            border: 0;
+            outline: 0;
+            vertical-align: baseline;
+            background: transparent;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        .hook{
+            height: 3000px;
+        }
+        </style>
+        <script type="text/javascript" src="../../lib/lib.js"></script>
+        <script type="text/javascript" src="dialog.js"></script>
+    </head>
+
+    <body>
+            <button id="show">show</button>
+<div class="hook"></div>
+        
+        <script type="text/javascript">
+        var dialog = lib.extend.useComponent("Dialog", {
+            content: "<div>显示</div>"
+        });
+        lib.on("show", "click", dialog.show.bind(dialog));            
+            
+
+        </script>
+    </body>
+</html>

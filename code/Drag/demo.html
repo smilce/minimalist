@@ -1,0 +1,122 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<style type="text/css">
+#music{
+    width: 100px;
+    height: 100px;
+    background-color: #DCA;
+    float: left;
+}
+#video{
+    width: 100px;
+    height: 100px;
+    background-color: #342;
+    float: left;
+}
+#baidu{
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    left: 50px;
+    top: 250px;
+    background-color: #541;
+}
+#baidu1{
+    margin-top: 30px;
+    margin-left: 70px;
+    width: 200px;
+    height: 200px;
+    background-color: #FA2;
+}
+#baidu1 p{
+    font-family: "微软雅黑";
+    font-size: 12px;
+}
+#baidu2{
+    width: 100px;
+    height: 100px;
+    background-color: #CCC;
+    float: left;
+    margin-left: 20px;
+    border: #BCA 5px solid;
+}
+</style>
+<div id="baidu">
+    <div id="baidu1">
+        <div id="baidu2">
+            <p>这里有一首诗</p>
+            <p>这里有一首歌</p>
+        </div>
+    </div>
+</div>
+<div id="music">
+
+</div>
+<div id="video">
+
+</div>
+<script type="text/javascript" src="../../lib/lib.js"></script>
+<script type="text/javascript" src="../../lib/underscore.js"></script>
+<script type="text/javascript" src="drag.js"></script>
+<script type="text/javascript">
+    
+    var music = lib.g("music"),
+        video = lib.g("video"),
+        bTop = document.body.scrollTop,
+        bLeft = document.body.scrollLeft,
+        items = [
+            {
+                dom: music,
+                info: [music.getBoundingClientRect().left + bLeft, music.getBoundingClientRect().top + bTop, music.offsetWidth, music.offsetHeight]
+            },
+            {
+                dom: video,
+                info: [video.getBoundingClientRect().left + bLeft, video.getBoundingClientRect().top + bTop, video.offsetWidth, video.offsetHeight]
+            }
+        ];
+
+    var drag = lib.extend.useComponent("Drag", {
+        content: "baidu2"
+    });
+
+    var dragDom,
+        width,
+        height,
+        currentDom;
+
+    drag.addListener('dragStart', function(e, dom){
+        dragDom = dom;
+        width = dragDom.offsetWidth;
+        height = dragDom.offsetHeight;
+    });
+
+    drag.addListener('dragmove', function(){
+        var left = dragDom.getBoundingClientRect().left + document.body.scrollLeft + width/2,
+            top = dragDom.getBoundingClientRect().top + document.body.scrollTop + height/2;
+
+        for(var i=0,d;d=items[i];i++){
+            var info = d.info;
+            if(left>info[0]&&left<info[0]+info[2]&&top>info[1]&&top<info[1]+info[3]){
+                if(currentDom !== d.dom){
+                    if(currentDom){
+                        currentDom.innerHTML ="byebye!";
+                        currentDom = null;
+                    }
+
+                    currentDom = d.dom;
+                    currentDom.innerHTML ="welcom!";
+                }
+                return;
+            }
+        }
+        if(currentDom){
+            currentDom.innerHTML ="byebye!";
+            currentDom = null;
+        }
+    });
+
+    drag.addListener('dragPause', function(){
+        console.error(1);
+    });
+
+    
+</script>

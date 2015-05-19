@@ -1,0 +1,70 @@
+<meta charset="utf-8" />
+<title>上百万数据不卡的轮播图</title>
+<style type="text/css">
+#panel{
+	width: 500px;
+	height: 100px;
+	font-size: 18px;
+	border: #CCC 5px solid;
+	overflow: hidden; 
+}
+</style>
+<h1>上百万数据不卡的轮播图</h1>
+<button id="prev">prev</button>
+<button id="next">next</button>
+<div id="panel" class="panel">
+	
+</div>
+<script type="text/template" id="scroll-template">
+	<div>
+		<%- title %><%- url %>
+	</div>
+</script>
+<script type="text/javascript" src='http://xapp.baidu.com/tool/underscore.js'></script>
+<script type="text/javascript" src='http://xapp.baidu.com/tool/lib.js'></script>
+<script type="text/javascript" src='scroll.js'></script>
+<script type="text/javascript">
+
+(function(window, undefiend){
+
+    'use strict';
+
+    var 
+        document = window.document;
+
+    var data,
+        list,
+        scroll;
+  
+
+    var init = function(){
+    	scroll = lib.extend.useComponent("Scroll", {
+			panel: "panel",
+			number: 5,
+			list: data,
+			format: _.template(lib.g("scroll-template").innerHTML)
+		});
+    }
+
+    lib.send.jsonp("../viewList/data.json", {
+        onlySend: true
+    });
+
+    window.callback = function(result){
+        data = result;
+        init.call(this);
+    }
+
+    lib.on("next", "click", function(){
+    	scroll.next();
+    });
+
+    lib.on("prev", "click", function(){
+    	scroll.prev();
+    });
+
+
+})(window);
+
+
+</script>

@@ -1,0 +1,8 @@
+var list = [];
+for(var i=0;i<100000;i++){
+	list.push({
+		title: "百度一下"+i,
+		url: "http://www.baidu.com/"+i
+	});
+}
+callback(list);

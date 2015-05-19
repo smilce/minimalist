@@ -52,8 +52,6 @@
         }
     }
 
-    var events = ;
-
     function ScrollLoad(arg) {
         arg = arg || {};
         this._panel = arg.panel || document.body;

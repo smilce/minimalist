@@ -1,0 +1,66 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<div id="panel"></div>
+<button id="get">获取数据</button>
+<button id="set">设置数据</button>
+<script type="text/javascript" src="../../lib/lib.js"></script>
+<script type="text/javascript" src="viewList.js"></script>
+<script type="text/javascript">
+
+(function(undefiend){
+
+    'use strict';
+
+    var window = this,
+        document = this.document;
+
+    var data,
+        list;
+
+
+    lib.send.jsonp("data.json", {
+        onlySend: true
+    });
+
+    window.callback = function(result){
+        data = result;
+        init.call(this);
+    }
+
+    function init(){
+        list = lib.extend.useComponent("ViewList", {
+            data: data,
+            format: function(item){
+                var div = document.createElement("div");
+                div.innerHTML = item.title;
+                var span = document.createElement("span");
+                span.className = "url";
+                span.innerHTML = item.url;
+                div.appendChild(span);
+                return div;
+            },
+            render: lib.g("panel"),
+            events: {
+                "click": openPage
+            },
+            context: window
+        });
+    }
+
+    function openPage(e, model){
+        console.error(this);
+        console.error(e);
+        console.error(model.get("title"));
+    }
+
+    document.getElementById("get").onclick=function(){
+        alert(list.getItem(1).get("url"));
+    }
+
+    document.getElementById("set").onclick=function(){
+        list.getItem(2).set("title", "改变了");
+    }
+
+}).call(this);
+
+
+</script>
